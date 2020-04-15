@@ -9,8 +9,11 @@
         html,body{
             min-height: 100%;
             background-color: #425765;
-            width: 65%;
+            width: 80%;
             margin:auto;
+            position: relative;
+            
+            padding: 0;
             margin-top: 50px;
             text-align: center;
         }
@@ -18,6 +21,7 @@
             font-size: 25px;
             border-radius: 20px;
             padding: 10px;
+            width: 60%;
         }
         .addBtn{
             font-size: 25px;
@@ -40,20 +44,24 @@
             text-align: left;
             float: left;
         }
-        
         .taskDiv{
             background-color: #eee;
             margin-top: 30px;
             width: 100%;
 
+            overflow:hidden;
         }
         .removeBtn{
-            text-align: right;
-            align-items: right;
-            margin-left: 75.96%;
-            display: inline;
+            /* text-align: right; */
+            /* align-items: right; */
+            /* margin-right: 0; */
+            /* display: inline; */
+            /* position: fixed; */
+            /* bottom: 10px; */
+            /* right: 10px;  */
             font-size: 30px;
             color: #667374;
+            float: right;            
         }
         .removeBtn:hover{
             color: white;
@@ -64,13 +72,46 @@
 </head>
 <body>
     <input type="text" name="task" id="task" placeholder="Add a task...">
-    <button class="addBtn">ADD TASK</button>
+    <button class="addBtn" id="addBtn">ADD TASK</button>
     
-    <div>
+    <div id="globalDiv">
         <div class="taskDiv">
             <label>this is a task</label>
-            <button class="removeBtn">X</button>
+            <button class="removeBtn" id="removeBtn">X</button>
         </div>
     </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    
+    // add task using button
+    var addBtn = document.getElementById('addBtn');
+    addBtn.onclick = function(){
+        var taskDiv = document.getElementById('globalDiv');
+        var newChild = document.createElement('div');
+        var input = document.getElementById('task');
+        if(input.value){
+            newChild.className = "taskDiv";
+            var html =  "<label>"+input.value+"</label> <button class=\"removeBtn\" id=\"removeBtn\">X</button>";
+            newChild.innerHTML = html;
+            taskDiv.insertBefore(newChild, taskDiv.firstChild);
+            input.value = '';
+        }
+    };
+    
+    // add task using Enter key 
+    var inputField = document.getElementById('task');
+    inputField.onkeypress = function(event){
+        if(event.keyCode==13){
+            addBtn.onclick();
+        }
+    }
+    
+
+    // delete task 
+    var removeBtn = document.getElementById('removeBtn');
+    removeBtn.onclick = function(){
+        console.log(this.className)
+    }
+</script>
 </html>
