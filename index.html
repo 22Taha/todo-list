@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo list</title>
+    <style>
+        html,body{
+            min-height: 100%;
+            background-color: #425765;
+            width: 65%;
+            margin:auto;
+            margin-top: 50px;
+            text-align: center;
+        }
+        input{
+            font-size: 25px;
+            border-radius: 20px;
+            padding: 10px;
+        }
+        .addBtn{
+            font-size: 25px;
+            border-radius: 20px;
+            padding: 10px;
+            margin-left: 5px;
+            color: #C8F8EA;
+            background-color: #43977F;
+            border: 0px;
+        }
+        .addBtn:hover{
+            color: #D5FAEF;
+            background-color: #1D4136;
+        }
+        label{
+            font-size: 30px;
+            margin-top: 25px;
+            color: #667374;
+            margin: 5px;
+            text-align: left;
+            float: left;
+        }
+        
+        .taskDiv{
+            background-color: #eee;
+            margin-top: 30px;
+            width: 100%;
+
+        }
+        .removeBtn{
+            text-align: right;
+            align-items: right;
+            margin-left: 75.96%;
+            display: inline;
+            font-size: 30px;
+            color: #667374;
+        }
+        .removeBtn:hover{
+            color: white;
+            background-color: #992823;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" name="task" id="task" placeholder="Add a task...">
+    <button class="addBtn">ADD TASK</button>
+    
+    <div>
+        <div class="taskDiv">
+            <label>this is a task</label>
+            <button class="removeBtn">X</button>
+        </div>
+    </div>
+
+</body>
+</html>
