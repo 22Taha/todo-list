@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo list</title>
+    <style>
+        html,body{
+            min-height: 100%;
+            background-color: #425765;
+            position: relative;
+            right: -10%;
+            width: 80%;
+            margin:0;
+            padding: 0;
+            margin-top: 50px;
+            text-align: center;
+        }
+        input{
+            font-size: 25px;
+            border-radius: 20px;
+            padding: 10px;
+            width: 60%;
+        }
+        .addBtn{
+            font-size: 25px;
+            border-radius: 20px;
+            padding: 10px;
+            margin-left: 5px;
+            color: #C8F8EA;
+            background-color: #43977F;
+            border: 0px;
+        }
+        .addBtn:hover{
+            color: #D5FAEF;
+            background-color: #1D4136;
+        }
+        label{
+            font-size: 30px;
+            margin-top: 25px;
+            color: #667374;
+            margin: 5px;
+            text-align: left;
+            float: left;
+        }
+        
+        .taskDiv{
+            background-color: #eee;
+            margin-top: 30px;
+            width: 100%;
+            overflow:hidden;
+        }
+        .removeBtn{
+            /* text-align: right; */
+            /* align-items: right; */
+            /* margin-right: 0; */
+            /* display: inline; */
+            /* position: fixed; */
+            /* bottom: 10px; */
+            /* right: 10px;  */
+            font-size: 30px;
+            color: #667374;
+            float: right;
+            
+        }
+        .removeBtn:hover{
+            color: white;
+            background-color: #992823;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" name="task" id="task" placeholder="Add a task...">
+    <button class="addBtn" id="addBtn">ADD TASK</button>
+    
+    <div id="globalDiv">
+        <div class="taskDiv">
+            <label>this is a task</label>
+            <button class="removeBtn" id="removeBtn">X</button>
+        </div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    
+    // add task using button
+    var addBtn = document.getElementById('addBtn');
+    addBtn.onclick = function(){
+        var taskDiv = document.getElementById('globalDiv');
+        var newChild = document.createElement('div');
+        var input = document.getElementById('task');
+        if(input.value){
+            newChild.className = "taskDiv";
+            var html =  "<label>"+input.value+"</label> <button class=\"removeBtn\" id=\"removeBtn\">X</button>";
+            newChild.innerHTML = html;
+            taskDiv.insertBefore(newChild, taskDiv.firstChild);
+            input.value = '';
+        }
+    };
+    
+    // add task using Enter key 
+    var inputField = document.getElementById('task');
+    inputField.onkeypress = function(event){
+        if(event.keyCode==13){
+            addBtn.onclick();
+        }
+    }
+    
+
+    // delete task 
+    var removeBtn = document.getElementById('removeBtn');
+    removeBtn.onclick = function(){
+        console.log(this.className)
+    }
+</script>
+</html>
