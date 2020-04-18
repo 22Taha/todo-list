@@ -72,36 +72,34 @@
 
 
         </div>
+
+        <script>
+            // add task using button
+            var addBtn = document.getElementById('addBtn');
+            addBtn.onclick = function(){
+                var taskDiv = document.getElementById('globalDiv');
+                var newChild = document.createElement('div');
+                var input = document.getElementById('task');
+                if(input.value){
+                    newChild.className = "taskDiv";
+                    newChild.innerHTML = "<label>"+input.value+"</label> <button class=\"removeBtn\" onclick=\"removeTask(this);\">X</button>";
+                    taskDiv.insertBefore(newChild, taskDiv.firstChild);
+                    input.value = '';
+                }
+            };
+            
+            // add task using Enter key 
+            var inputField = document.getElementById('task');
+            inputField.onkeypress = function(event){
+                if(event.keyCode==13){
+                    addBtn.onclick();
+                }
+            }
+
+            // delete task 
+            function removeTask(element){
+                element.parentElement.remove();
+            }
+        </script>
     </body>
-
-    <script>
-        
-        // add task using button
-        var addBtn = document.getElementById('addBtn');
-        addBtn.onclick = function(){
-            var taskDiv = document.getElementById('globalDiv');
-            var newChild = document.createElement('div');
-            var input = document.getElementById('task');
-            if(input.value){
-                newChild.className = "taskDiv";
-                var html =  "<label>"+input.value+"</label> <button class=\"removeBtn\" onclick=\"removeTask(this);\">X</button>";
-                newChild.innerHTML = html;
-                taskDiv.insertBefore(newChild, taskDiv.firstChild);
-                input.value = '';
-            }
-        };
-        
-        // add task using Enter key 
-        var inputField = document.getElementById('task');
-        inputField.onkeypress = function(event){
-            if(event.keyCode==13){
-                addBtn.onclick();
-            }
-        }
-
-        // delete task 
-        function removeTask(element){
-            element.parentElement.remove();
-        }
-    </script>
 </html>
