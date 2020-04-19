@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Todo list</title>
-
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <style>
             html,body{
                 min-height: 100%;
@@ -16,11 +16,11 @@
                 margin-top: 50px;
                 text-align: center;
             }
-            input{
+            .input{
                 font-size: 25px;
                 border-radius: 20px;
                 padding: 10px;
-                width: 60%;
+                width: 100%;
             }
             .addBtn{
                 font-size: 25px;
@@ -35,8 +35,11 @@
                 color: #D5FAEF;
                 background-color: #1D4136;
             }
+            /* .badge{
+
+            } */
             label{
-                font-size: 30px;
+                font-size: 20px;
                 margin-top: 25px;
                 color: #667374;
                 margin: 5px;
@@ -49,11 +52,13 @@
                 width: 100%;
                 padding-left: 5px;
                 overflow:hidden;
+                vertical-align: middle;
+
             }
             .removeBtn{
-                font-size: 30px;
+                /* font-size: 30px; */
                 color: #667374;
-                float: right;            
+                /* float: right;             */
             }
             .removeBtn:hover{
                 color: white;
@@ -64,29 +69,120 @@
     </head>
 
     <body>
-        <input type="text" name="task" id="task" placeholder="Add a task...">
-        <button class="addBtn" id="addBtn">ADD TASK</button>
         
-        <div id="globalDiv">
-            <!-- Tasks will be added here... -->
-
-
+        <div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="text" class="input" name="task" id="task" placeholder="Add a task...">              
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <input id="date" type="date" class="input m-2" >
+                </div>
+                <div class="col-3">
+                    <div class="form-check-inline my-3">
+                        <input id="importantCheck" type="checkbox"> 
+                        <label for="importantCheck"  style="color: #D5FAEF;">Important</label>
+                    </div>                
+                </div>
+                <div class="col-2 mt-2">
+                    <button class="addBtn" id="addBtn">Add Task</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="card bg-light mt-3 py-auto">
+                <div class="card-header">
+                  TODO LIST
+                </div>
+                <ul id="globalDiv" class="list-group list-group-flush text-left">
+                  
+                  
+                </ul>
+            </div>      
         </div>
 
+        <!-- Styles -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        
+        
         <script>
+            var data = [];
+
+            // get data from storage 
+            function getStorageData(){
+                if(localStorage.getItem("data")){
+                    var dd = JSON.parse(localStorage.getItem("data"))
+                    console.log(dd.length)
+                    for(var i=0; i<dd.length; i++){
+                        console.log(dd[i])
+                        data.push(dd[i]);
+                    }
+                }
+            }
+            getStorageData();
+
+            // create existing tasks in list();
+            function createItemsStorage(){
+                data.forEach(task => {
+                    this.createTask(task.task, task.important, task.stat, task.date)
+                });
+            }
+            createItemsStorage();
+
             // add task using button
-            var addBtn = document.getElementById('addBtn');
-            addBtn.onclick = function(){
-                var taskDiv = document.getElementById('globalDiv');
-                var newChild = document.createElement('div');
-                var input = document.getElementById('task');
-                if(input.value){
-                    newChild.className = "taskDiv";
-                    newChild.innerHTML = "<label>"+input.value+"</label> <button class=\"removeBtn\" onclick=\"removeTask(this);\">X</button>";
-                    taskDiv.insertBefore(newChild, taskDiv.firstChild);
-                    input.value = '';
+            document.getElementById('addBtn').onclick = function(){
+                var task = document.getElementById('task').value;
+                if(task){
+                    if(document.getElementById('importantCheck').checked){
+                        createTask(task, true, todo = "todo", document.getElementById('date').value);
+                        pushElement(task, true, todo = "todo", document.getElementById('date').value);
+                    }else{
+                        createTask(task, false, todo = "todo", document.getElementById('date').value);
+                        pushElement(task, false, todo = "todo", document.getElementById('date').value);
+                    }
                 }
             };
+
+            // push element to localStorage
+            function pushElement(task, important, stat, date){
+                data.push({
+                    "task": task,
+                    "important": important,
+                    "stat": stat,
+                    "date": date,
+                })
+                localStorage.setItem("data",JSON.stringify(data));
+                console.log(localStorage)
+            }
+
+            // create task in list 
+            function createTask(task,important,stat,date){
+                var taskDiv = document.getElementById('globalDiv');
+                var newChild = document.createElement('li');
+                
+                if(important==true){
+                    important = "<span class=\"badge badge-pill badge-danger m-2\">Important</span>"
+                }else{
+                    important = "";
+                }
+                if(stat=="done") var color = "success"; else var color = "primary";
+                newChild.innerHTML = "<label>"+task+"</label> <span name=\"stat\" class=\"badge badge-pill badge-"+color+" m-2\">"+stat+"</span>"+important+"<button class=\"close m-2 float-right\" onclick=\"removeTask(this);\">X</button><select onchange=\"changeStat(this)\" class=\"custom-select float-right\" style=\"width:auto;\"><option value=\"todo\" selected>todo</option><option value=\"done\">done</option></select><span class=\"mt-2 mr-1 float-right\">"+date+"</span>";
+
+                taskDiv.insertBefore(newChild, taskDiv.firstChild);
+                this.resetFields();
+            }
+
+            // reset inputs and fields 
+            function resetFields(){
+                document.getElementById('task').value='';
+                document.getElementById('importantCheck').checked=false;
+                document.getElementById('date').valueAsDate = null;
+            }
+
             
             // add task using Enter key 
             var inputField = document.getElementById('task');
@@ -96,7 +192,21 @@
                 }
             }
 
-            // delete task 
+            function changeStat(element){
+                // var parent = this.parentElement
+                if(element.value=="done"){
+                    element.parentElement.querySelector('span[name="stat"]').classList.remove('badge-primary')
+                    element.parentElement.querySelector('span[name="stat"]').classList.add('badge-success')
+                    element.parentElement.querySelector('span[name="stat"]').innerHTML="done"
+                }
+                else{
+                    element.parentElement.querySelector('span[name="stat"]').classList.remove('badge-success')
+                    element.parentElement.querySelector('span[name="stat"]').classList.add('badge-primary')
+                    element.parentElement.querySelector('span[name="stat"]').innerHTML="todo"
+                }
+            }
+
+            // delete task from list
             function removeTask(element){
                 element.parentElement.remove();
             }
