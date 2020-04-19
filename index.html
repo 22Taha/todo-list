@@ -116,9 +116,7 @@
             function getStorageData(){
                 if(localStorage.getItem("data")){
                     var dd = JSON.parse(localStorage.getItem("data"))
-                    console.log(dd.length)
                     for(var i=0; i<dd.length; i++){
-                        console.log(dd[i])
                         data.push(dd[i]);
                     }
                 }
@@ -156,7 +154,6 @@
                     "date": date,
                 })
                 localStorage.setItem("data",JSON.stringify(data));
-                console.log(localStorage)
             }
 
             // create task in list 
