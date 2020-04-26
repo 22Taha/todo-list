@@ -1,0 +1,70 @@
+html,body{
+    min-height: 100%;
+    background-color: #425765;
+    width: 80%;
+    margin:auto;
+    position: relative;
+    padding: 0;
+    margin-top: 50px;
+    text-align: center;
+}
+.input{
+    font-size: 25px;
+    border-radius: 20px;
+    padding: 10px;
+    width: 100%;
+}
+.addBtn{
+    font-size: 25px;
+    border-radius: 20px;
+    padding: 10px;
+    margin-left: 5px;
+    color: #C8F8EA;
+    background-color: #43977F;
+    border: 0px;
+}
+.undo_redo{
+    font-size: 25px;
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    margin-top: 10px;
+    margin-left: 5px;
+    color: #C8F8EA;
+    background-color: #d66449;
+    border: 0px;
+}
+.undo_redo:hover{
+    color: #D5FAEF;
+    background-color: #a34331;
+}
+.addBtn:hover{
+    color: #D5FAEF;
+    background-color: #1D4136;
+}
+
+label{
+    font-size: 20px;
+    margin-top: 25px;
+    color: #667374;
+    margin: 5px;
+    text-align: left;
+    float: left;
+}
+.taskDiv{
+    background-color: #eee;
+    margin-top: 30px;
+    width: 100%;
+    padding-left: 5px;
+    overflow:hidden;
+    vertical-align: middle;
+
+}
+.removeBtn{
+    color: #667374;
+}
+.removeBtn:hover{
+    color: white;
+    background-color: #992823;
+    border: 0;
+}
