@@ -2,17 +2,17 @@ import { updateTask, removeTask } from "./undo_redo";
 
 
 // create existing tasks in list();
-export const createItemsStorage = (todos) => {
-    document.getElementById('globalDiv').innerHTML= "";
+export const createItems = (todos, element) => {
+    document.getElementById(element).innerHTML= "";
     todos.forEach(todo => {
-        createTask(todo)
+        createTask(todo, element)
     });
 }
 
 // create task in list 
-export const createTask = (todo) => {
-    let taskDiv = document.getElementById('globalDiv');
-    let newChild = document.createElement('li');
+export const createTask = (todo, element) => {
+    const taskDiv = document.getElementById(element);
+    const newChild = document.createElement('li');
     let important="";
     let imp = 0;
     if(todo.isImportant){
@@ -56,12 +56,16 @@ export const createTask = (todo) => {
     });
     
     taskDiv.insertBefore(newChild, taskDiv.firstChild);
-    resetFields();
 }
 
 //  reset inputs and fields 
-const resetFields = () => {
-    document.getElementById('task').value='';
-    document.getElementById('importantCheck').checked=false;
-    document.getElementById('date').value = "";
+export const resetFields = () => {
+    const inputs = document.getElementsByTagName('input');
+    for (let i = 0; i < inputs.length; i++) {
+        if(inputs[i].type=="checkbox"){
+            inputs[i].checked=false;
+        }else{
+            inputs[i].value = "";
+        }
+    }
 }

@@ -1,20 +1,20 @@
 import Todo from './modules/Todo'
 import "../css/style.css"
-import {createItemsStorage, createTask} from './modules/DOM'
+import {createItems, createTask, resetFields} from './modules/DOM'
 import { todos, addTask, back, forward } from './modules/undo_redo'
 
 
 // get existing todos
 let data = todos();
 if(data){
-    createItemsStorage(data);
+    createItems(data,"globalDiv");
 }
 
 // go back
 document.getElementById('backBtn').onclick = function(){
     data = back();
     if(data){
-        createItemsStorage(data);
+        createItems(data, "globalDiv");
     }
 }
 
@@ -22,7 +22,7 @@ document.getElementById('backBtn').onclick = function(){
 document.getElementById('forwardBtn').onclick = function(){
     data = forward();
     if(data){
-        createItemsStorage(data);
+        createItems(data, "globalDiv");
     }
 }
 
@@ -32,7 +32,7 @@ const alertPopup = () => {
     if(data!=null){
         dataL = JSON.parse(JSON.stringify(data))
         setInterval(function(){
-            var diff = null;
+            let diff = null;
             dataL.forEach(element => {
                 if(element.date!=""){
                     diff = (new Date(Date.now()).getTime() - new Date(element.date).getTime())/1000;
@@ -55,8 +55,9 @@ document.getElementById('addBtn').onclick = function(){
         if(document.getElementById('importantCheck').checked){
             todo.isImportant=true;
         }
-        createTask(todo);
+        createTask(todo, "globalDiv");
         addTask(todo);
+        resetFields();
         dataL.push(todo);
     }
 };

@@ -2,16 +2,9 @@
 // get data from storage 
 export const getStorageData = () => {
     if(localStorage.getItem("storage")){
-        let data = JSON.parse(localStorage.getItem("storage"));
-        return data;
+        return JSON.parse(localStorage.getItem("storage"));
     }
-    let empty = {
-        past: [],
-        present: [],
-        futur: []
-    };    
-    localStorage.setItem("storage",JSON.stringify(empty));
-    return empty;
+    return null;
 }
 
 // push element to localStorage

@@ -3,6 +3,14 @@ import { getStorageData, updateLocalStorage } from "./storage";
 // get data from localStorage
 let data = getStorageData();
 
+if(data==null){
+    data = {
+        past: [],
+        present: [],
+        futur: []
+    };    
+}
+
 // get todo list
 export const todos = () => {
     return data.present;
