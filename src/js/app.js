@@ -1,5 +1,7 @@
-import Todo from './modules/Todo'
+import 'bootstrap'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "../css/style.css"
+import Todo from './modules/Todo'
 import {createItems, createTask, resetFields} from './modules/DOM'
 import { todos, addTask, back, forward } from './modules/undo_redo'
 
